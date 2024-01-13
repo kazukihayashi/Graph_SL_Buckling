@@ -190,7 +190,7 @@ class Truss():
 		# self.render_buckling_shape(self.node,self.node+primary_mode*linear_buckling_load_factor*scale,color=(0.5,0.0,0.0,1.0),name=0,show=True)
 		# self.render_buckling_shape(self.node,self.node+disp*np.linalg.norm(primary_mode*linear_buckling_load_factor)/np.linalg.norm(disp),color=(0.0,0.0,0.5,1.0),name=1,show=True)
 		# self.render_buckling_shape(self.node,self.node+disp*scale,color=(0.0,0.0,0.5,1.0),name=1,show=True)
-		self.render_buckling_shape(self.node,[self.node+primary_mode/np.max(primary_mode)*scale,self.node+disp/np.max(disp)*scale],color=[(0.8,0.0,0.0,1.0),(0.0,0.0,0.8,1.0)],name=2,show=True)
+		# self.render_buckling_shape(self.node,[self.node+primary_mode/np.max(primary_mode)*scale,self.node+disp/np.max(disp)*scale],color=[(0.8,0.0,0.0,1.0),(0.0,0.0,0.8,1.0)],name=2,show=True)
 
 		return np.copy(self.v), np.copy(self.w), self.target # Use np.copy if self.target is an numpy array
 
