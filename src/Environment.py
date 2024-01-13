@@ -86,7 +86,7 @@ class Environment():
 		# 	imin = np.argmin(targets)
 		# 	imax = np.argmax(targets)
 
-		v,w,target = self.env.run()
+		v,w,target = self.env.run(prt=True,illustrate=True)
 		prediction = self.brain.model.Forward(v,w,self.env.connectivity).cpu().detach().numpy()
 		self.env.render(name="init")
 		print("prediction={}".format(prediction))
