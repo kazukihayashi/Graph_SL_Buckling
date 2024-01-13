@@ -11,8 +11,8 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 	section[nm]			:(float) cross-sectional area of member
 	edge_annotation[nm]	:(float) axial stress of member
 	"""
-	fig = pyplot.figure(figsize=(5,5))
-	pyplot.subplots_adjust(left=0.1, right=0.95, bottom=0.1, top=0.95)
+	fig = pyplot.figure()
+	# pyplot.subplots_adjust(left=0.1, right=0.95, bottom=0.1, top=0.95)
 
 	if node.shape[1] == 3:
 
