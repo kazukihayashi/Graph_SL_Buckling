@@ -12,7 +12,7 @@ parser.add_argument("--n_epoch", help="Number of epochs to train the machine lea
 args = parser.parse_args()
 
 t1 = time.time()
-env = Environment.Environment(gpu=args.use_gpu)
+env = Environment.Environment(gpu=args.use_gpu,n_edge_feature=args.n_edge_feature,n_whole_feature=args.n_whole_feature)
 env.Stock(n_train_data=args.n_train_data) # Stock supervision data
 env.Train(n_epoch=args.n_epoch) # Train machine learning model
 t2 = time.time()
