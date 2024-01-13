@@ -30,7 +30,7 @@ class Environment():
 			assert "Invalid max_ny"
 		count = 0
 		for i in range(n_train_data):
-			self.env.reset(nx=np.randint(min_nx,max_nx),ny=np.randint(min_ny,max_ny))
+			self.env.reset(nx=np.random.randint(min_nx,max_nx),ny=np.random.randint(min_ny,max_ny))
 			v,w,target = self.env.run()
 			if target != None:
 				self.brain.store(self.env.connectivity,v,w,target)
