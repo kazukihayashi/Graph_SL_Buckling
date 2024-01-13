@@ -203,8 +203,7 @@ class Brain():
         self.n_node_inputs = n_node_inputs
         self.n_edge_inputs = n_edge_inputs
         self.model = NN(n_node_inputs,n_edge_inputs,n_node_outputs,whole_graph_feature,use_gpu)
-        # self.optimizer = torch.optim.SGD(self.model.parameters(),lr=1.0e-1,momentum=0.9)
-        self.optimizer = torch.optim.RMSprop(self.model.parameters(),lr=1.0e-3)
+        self.optimizer = torch.optim.RMSprop(self.model.parameters(),lr=1.0e-4)
         self.memory = deque()
         self.lossfunc = torch.nn.L1Loss()
         self.print_frequency = 10 # print the averaged loss for this number of minibatches
