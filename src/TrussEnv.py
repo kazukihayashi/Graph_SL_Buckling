@@ -189,7 +189,6 @@ class Truss():
 		# self.render(show=True)
 		scale = 1000.0
 		if illustrate:
-			# self.render_buckling_shape(self.node,self.node+primary_mode*linear_buckling_load_factor*scale,color=(0.5,0.0,0.0,1.0),name="init",show=False)
 			self.render_buckling_shape(self.node,[self.node+primary_mode/np.max(primary_mode)*scale,self.node+disp/np.max(disp)*scale],color=[(0.8,0.0,0.0,1.0),(0.0,0.0,0.8,1.0)],name="two",show=False)
 
 		return np.copy(self.v), np.copy(self.w), self.target # Use np.copy if self.target is an numpy array
