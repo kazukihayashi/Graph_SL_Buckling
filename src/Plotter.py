@@ -14,42 +14,7 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 	fig = pyplot.figure(figsize=(5,5))
 	pyplot.subplots_adjust(left=0.1, right=0.95, bottom=0.1, top=0.95)
 
-	if node.shape[1] == 2:
-
-		if len(node_shape) == 0:
-			node_shape = ["o" for i in range(np.shape(node)[0])]
-		if len(node_size) == 0:
-			node_size = [3 for i in range(np.shape(node)[0])]
-		if len(node_color) == 0:
-			node_color = [(0.0,0.0,0.0) for i in range(np.shape(node)[0])]
-		if len(edge_color) == 0:
-			edge_color = [(0.5,0.5,0.5) for i in range(np.shape(connectivity)[0])]
-		if len(edge_size) == 0:
-			edge_size = [2 for i in range(np.shape(connectivity)[0])]
-		
-		ax = pyplot.subplot()
-		for i in range(len(connectivity)):
-			line = Line2D([node[connectivity[i,0],0],node[connectivity[i,1],0]],[node[connectivity[i,0],1],node[connectivity[i,1],1]],linewidth=edge_size,color=edge_color[i])
-			ax.add_line(line)
-		for i in range(np.shape(node)[0]):
-			ax.plot([node[i,0]],[node[i,1]], node_shape[i], color="black", ms=node_size[i]*1.5)
-			if node_shape[i] == "o":
-				ax.plot([node[i,0]],[node[i,1]], node_shape[i], color=node_color[i], ms=node_size[i])
-		if edge_annotation is not []:
-			for i in range(len(connectivity)):
-				ax.annotate("{:3.1f}".format(edge_annotation[i]),(np.mean(node[connectivity[i,:],0]),np.mean(node[connectivity[i,:],1])))
-		pyplot.xlim([np.min(node[:,0]),np.max(node[:,0])])
-		pyplot.ylim([np.min(node[:,1]),np.max(node[:,1])])
-		pyplot.tick_params(labelbottom="off",bottom="off",labelleft="off",left="off")
-		pyplot.axis('scaled')
-		pyplot.axis('off')
-		# if name is not None:
-		# 	pyplot.savefig(r'result\{}.png'.format(name))
-		if show:
-			pyplot.show()
-		pyplot.close(fig)
-
-	elif node.shape[1] == 3:
+	if node.shape[1] == 3:
 
 		def set_axes_equal(ax,Xmin,Xmax,Ymin,Ymax,Zmin,Zmax):
 
@@ -80,19 +45,22 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		if len(edge_size) == 0:
 			edge_size = [1 for i in range(np.shape(connectivity)[0])]
 
-		objects = []
+		# objects = []
 		# plot node
 		for i in range(node.shape[0]):
-			objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i]))#,zorder=node_zorder[i]))
+			ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i])
+			# objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i]))#,zorder=node_zorder[i]))
 			if node_shape[i] == "o":
-				objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5))#,zorder=edge_zorder[i]))
+				ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5)
+				# objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5))#,zorder=edge_zorder[i]))
 
 		# connect member
 		for i in range(connectivity.shape[0]):
 			x = [node[connectivity[i,0],0],node[connectivity[i,1],0]]
 			y = [node[connectivity[i,0],1],node[connectivity[i,1],1]]
 			z = [node[connectivity[i,0],2],node[connectivity[i,1],2]]
-			objects.extend(ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0))
+			ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0)
+			# objects.extend(ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0))
 
 		# # plot front node
 		# if front_node_index is not None:
@@ -116,7 +84,7 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 
 		pyplot.close(fig)
 	else:
-		raise Exception("Only 2D or 3D figure is supported.")
+		raise Exception("Only 3D figure is supported.")
 
 	return fig
 
