@@ -79,8 +79,8 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		pyplot.savefig(r'result/{0}.png'.format(name),dpi=150,transparent=True)
 		if show:
 			pyplot.show()
-		for obj in objects:
-			obj.remove()
+		# for obj in objects:
+		# 	obj.remove()
 
 		pyplot.close(fig)
 	else:
