@@ -1,6 +1,5 @@
 import colorsys
 from matplotlib import pyplot
-from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.lines import Line2D
 import numpy as np
 
@@ -12,7 +11,7 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 	edge_annotation[nm]	:(float) axial stress of member
 	"""
 	fig = pyplot.figure()
-	# pyplot.subplots_adjust(left=0.1, right=0.95, bottom=0.1, top=0.95)
+	pyplot.subplots_adjust(left=0.1, right=0.95, bottom=0.1, top=0.95)
 
 	if node.shape[1] == 3:
 
@@ -26,7 +25,6 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 
 		# make space
 		ax = pyplot.axes(projection='3d')
-		# ax = Axes3D(fig)
 		ax.set_box_aspect((1,1,1))
 		set_axes_equal(ax,node[:,0].min(),node[:,0].max(),node[:,1].min(),node[:,1].max(),node[:,2].min(),node[:,2].max())
 
@@ -46,37 +44,37 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		if len(edge_size) == 0:
 			edge_size = [1 for i in range(np.shape(connectivity)[0])]
 
-		# objects = []
+		objects = []
 		# plot node
 		for i in range(node.shape[0]):
-			ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i])
-			# objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i]))#,zorder=node_zorder[i]))
+			# ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i])
+			objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i]))#,zorder=node_zorder[i]))
 			if node_shape[i] == "o":
-				ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5)
-				# objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5))#,zorder=edge_zorder[i]))
+				# ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5)
+				objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5))#,zorder=edge_zorder[i]))
 
 		# connect member
 		for i in range(connectivity.shape[0]):
 			x = [node[connectivity[i,0],0],node[connectivity[i,1],0]]
 			y = [node[connectivity[i,0],1],node[connectivity[i,1],1]]
 			z = [node[connectivity[i,0],2],node[connectivity[i,1],2]]
-			ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0)
-			# objects.extend(ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0))
+			# ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0)
+			objects.extend(ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0))
 
 		# # plot front node
 		# if front_node_index is not None:
 		#     for fni in front_node_index:
 		#         ax.plot(node[fni,0],node[fni,1],node[fni,2], node_shape[fni], color=node_color[fni], ms=node_size[fni])
 
-		# ax.tick_params(labelbottom="off",bottom="off") # Delete x axis
-		# ax.tick_params(labelleft="off",left="off") # Delete y axis
-		# ax.set_xticklabels([]) 
-		# ax.axis("off") # Delete frame
+		ax.tick_params(labelbottom="off",bottom="off") # Delete x axis
+		ax.tick_params(labelleft="off",left="off") # Delete y axis
+		ax.set_xticklabels([]) 
+		ax.axis("off") # Delete frame
 	
 		# view angle
-		# ax.set_proj_type('ortho')
-		# ax.view_init(elev=30, azim=225)
-		# pyplot.axis('off')
+		ax.set_proj_type('ortho')
+		ax.view_init(elev=30, azim=225)
+		pyplot.axis('off')
 		pyplot.savefig(r'result/{0}.png'.format(name),dpi=150,transparent=True)
 		if show:
 			pyplot.show()
