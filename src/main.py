@@ -3,6 +3,9 @@ import Environment
 
 import argparse
 parser = argparse.ArgumentParser()
+
+parser.add_argument("--n_edge_feature", help="Number of edge features to be extracted by graph embedding.", default=100, type=int)
+parser.add_argument("--n_whole_feature", help="Number of whole graph features to be extracted by graph embedding", default=100, type=int)
 parser.add_argument("--use_gpu", help="Use GPU if True, use CPU if False", action='store_true')
 parser.add_argument("--n_train_data", help="Number of samples to train the machine learning model.", default=1000, type=int)
 parser.add_argument("--n_epoch", help="Number of epochs to train the machine learning model.", default=200, type=int)
