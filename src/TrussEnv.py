@@ -180,7 +180,7 @@ class Truss():
 		lambda_history, disp = Bif.ElasticBucklingAnalysis(np.array(self.node*1e-3,dtype=np.float64),self.connectivity,self.support,np.array(self.load,dtype=np.float64),np.array(self.section*1e-6,dtype=np.float64),np.ones(self.nm,dtype=np.float64)*self.E*1e6,linear_buckling_load_factor)
 		elastic_buckling_load_factor = np.max(lambda_history) # elastic buckling load factor (considering geometric nonlinearity)
 		self.target = elastic_buckling_load_factor/linear_buckling_load_factor
-		if print:
+		if prt:
 			print("lin: {0:7.2f}, ela: {1:7.2f}, alpha: {2:1.4f}".format(linear_buckling_load_factor,elastic_buckling_load_factor,self.target))
 
 		self.v = self.update_node_v(primary_mode)
@@ -188,7 +188,7 @@ class Truss():
 		
 		# self.render(show=True)
 		scale = 1000.0
-		if display:
+		if illustrate:
 			self.render_buckling_shape(self.node,self.node+primary_mode*linear_buckling_load_factor*scale,color=(0.5,0.0,0.0,1.0),name="init",show=True)
 			self.render_buckling_shape(self.node,[self.node+primary_mode/np.max(primary_mode)*scale,self.node+disp/np.max(disp)*scale],color=[(0.8,0.0,0.0,1.0),(0.0,0.0,0.8,1.0)],name="two",show=True)
 
