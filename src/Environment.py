@@ -7,16 +7,14 @@ import pickle
 
 ### User specified parameters ###
 import TrussEnv as env
-N_EDGE_FEATURE = 100
-N_WHOLE_FEATURE = 100
 RECORD_INTERVAL = 10
 #################################
 
 class Environment():
-	def __init__(self,gpu):
+	def __init__(self,gpu,n_edge_feature,n_whole_feature):
 		self.env = env.Truss()
 		self.env.reset(test=True)
-		self.brain = Agent.Brain(self.env.nfv,self.env.nfw,N_EDGE_FEATURE,N_WHOLE_FEATURE,gpu)
+		self.brain = Agent.Brain(self.env.nfv,self.env.nfw,n_edge_feature,n_whole_feature,gpu)
 		if gpu:
 			self.brain.model = self.brain.model.to("cuda")
 		pass
