@@ -168,7 +168,7 @@ class Truss():
 			
 		return w
 
-	def run(self,print=False,display=False):
+	def run(self,prt=False,illustrate=False):
 
 		# self.render(name=0)
 
