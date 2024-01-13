@@ -7,7 +7,7 @@ import Plotter
 from numba import f8, i4, b1
 import numba as nb
 import Bezier
-import Bif
+import StructuralAnalysis
 
 @nb.jit(nb.types.Tuple((i4,i4,f8[:,:],i4[:,:]))(i4,i4,f8))
 def InitializeGeometry(nx,ny,span):
@@ -161,7 +161,7 @@ class Truss():
 		# ## 0: length
 		# w[:,0] = np.linalg.norm(self.node[self.connectivity[:,1]]-self.node[self.connectivity[:,0]],axis=1)/1500
 		## 0: stress
-		d, s, _ = Bif.LinearStructuralAnalysis(self.node*1e-3,self.connectivity,self.support,self.load,self.section*1e-6,np.ones(self.nm,dtype=np.float64)*self.E*1e6)
+		d, s, _ = StructuralAnalysis.LinearStructuralAnalysis(self.node*1e-3,self.connectivity,self.support,self.load,self.section*1e-6,np.ones(self.nm,dtype=np.float64)*self.E*1e6)
 		self.disp = d*1e3
 		self.stress = s*1e-6
 		w[:,0] = self.stress/np.abs(self.stress).max()
@@ -172,12 +172,12 @@ class Truss():
 
 		# self.render(name=0)
 
-		eig_vals, eig_vecs = Bif.LinearBucklingAnalysis(np.array(self.node*1e-3,dtype=np.float64),self.connectivity,self.support,np.array(self.load,dtype=np.float64),np.array(self.section*1e-6,dtype=np.float64),np.ones(self.nm,dtype=np.float64)*self.E*1e6)
+		eig_vals, eig_vecs = StructuralAnalysis.LinearBucklingAnalysis(np.array(self.node*1e-3,dtype=np.float64),self.connectivity,self.support,np.array(self.load,dtype=np.float64),np.array(self.section*1e-6,dtype=np.float64),np.ones(self.nm,dtype=np.float64)*self.E*1e6)
 		positive_eig_vals = eig_vals[eig_vals>1.0e-3]
 		linear_buckling_load_factor = np.min(positive_eig_vals) # linear bucling load factor (not considering geometric nonlinearity)
 		primary_mode = eig_vecs[np.where(eig_vals==linear_buckling_load_factor)[0][0]]
 
-		lambda_history, disp = Bif.ElasticBucklingAnalysis(np.array(self.node*1e-3,dtype=np.float64),self.connectivity,self.support,np.array(self.load,dtype=np.float64),np.array(self.section*1e-6,dtype=np.float64),np.ones(self.nm,dtype=np.float64)*self.E*1e6,linear_buckling_load_factor)
+		lambda_history, disp = StructuralAnalysis.ElasticBucklingAnalysis(np.array(self.node*1e-3,dtype=np.float64),self.connectivity,self.support,np.array(self.load,dtype=np.float64),np.array(self.section*1e-6,dtype=np.float64),np.ones(self.nm,dtype=np.float64)*self.E*1e6,linear_buckling_load_factor)
 		elastic_buckling_load_factor = np.max(lambda_history) # elastic buckling load factor (considering geometric nonlinearity)
 		self.target = elastic_buckling_load_factor/linear_buckling_load_factor
 		if prt:
