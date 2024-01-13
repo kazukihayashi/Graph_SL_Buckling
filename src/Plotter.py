@@ -25,7 +25,8 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 			ax.set_zlim3d([(Zmax+Zmin)/2 - plot_radius, (Zmax+Zmin)/2 + plot_radius])
 
 		# make space
-		ax = Axes3D(fig)
+		ax = pyplot.axes(projection='3d')
+		# ax = Axes3D(fig)
 		ax.set_box_aspect((1,1,1))
 		set_axes_equal(ax,node[:,0].min(),node[:,0].max(),node[:,1].min(),node[:,1].max(),node[:,2].min(),node[:,2].max())
 
