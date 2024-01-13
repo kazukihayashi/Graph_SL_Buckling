@@ -215,7 +215,7 @@ class Truss():
 		outfile = Plotter.Draw(nd,ct,node_color=ncolor,node_size=nsize,node_shape=nshape,node_zorder=nzorder,edge_color=ecolor,edge_size=esize,edge_zorder=ezorder,name=name,show=show)
 	
 	def render(self, name=None, show=False):
-		nsize = [10 for i in range(self.nk)]
+		nsize = [4 for i in range(self.nk)]
 		nshape = ['o' for i in range(self.nk)]
 		ncolor = [(0.5,0.5,0.5) for i in range(self.nk)]
 
