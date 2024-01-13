@@ -47,10 +47,8 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		objects = []
 		# plot node
 		for i in range(node.shape[0]):
-			# ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i])
 			objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color=node_color[i], ms=node_size[i]))#,zorder=node_zorder[i]))
 			if node_shape[i] == "o":
-				# ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5)
 				objects.extend(ax.plot(node[i,0],node[i,1],node[i,2], node_shape[i], color="white", ms=node_size[i]//1.5))#,zorder=edge_zorder[i]))
 
 		# connect member
@@ -58,7 +56,6 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 			x = [node[connectivity[i,0],0],node[connectivity[i,1],0]]
 			y = [node[connectivity[i,0],1],node[connectivity[i,1],1]]
 			z = [node[connectivity[i,0],2],node[connectivity[i,1],2]]
-			# ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0)
 			objects.extend(ax.plot(x,y,z, linewidth=edge_size[i], color=edge_color[i],zorder=0))
 
 		# # plot front node
@@ -78,8 +75,8 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		pyplot.savefig(r'result/{0}.png'.format(name),dpi=150,transparent=True)
 		if show:
 			pyplot.show()
-		# for obj in objects:
-		# 	obj.remove()
+		for obj in objects:
+			obj.remove()
 
 		pyplot.close()
 	else:
