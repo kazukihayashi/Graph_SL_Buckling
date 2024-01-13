@@ -16,6 +16,8 @@ RECORD_INTERVAL = 10
 
 class Environment():
 	def __init__(self,gpu,n_edge_feature,n_whole_feature):
+		self.n_edge_feature = n_edge_feature
+		self.n_whole_feature = n_whole_feature
 		self.env = env.Truss()
 		self.env.reset(test=True)
 		self.brain = Agent.Brain(self.env.nfv,self.env.nfw,n_edge_feature,n_whole_feature,gpu)
@@ -71,17 +73,9 @@ class Environment():
 
 		self.brain.train(n_epoch=n_epoch)
 
-	# def Test(self):
-	#     self.env.reset(test=True)
-	#     self.brain = agent.Brain(v.shape[1],w.shape[1],N_EDGE_FEATURE,False)
-	#     self.brain.model.Load(filename="trained_model")
-	#     with open('memory.pickle', 'rb') as f:
-	#         self.brain.memory = pickle.load(f)
-	#     self.brain.validate(gpu=False)
-
 	def Test_one(self):
 		self.env.reset(nx=4,ny=4,test=False)
-		self.brain = Agent.Brain(self.env.nfv,self.env.nfw,N_EDGE_FEATURE,N_WHOLE_FEATURE,False)
+		self.brain = Agent.Brain(self.env.nfv,self.env.nfw,self.n_edge_feature,self.n_whole_feature,False)
 		self.brain.model.Load(filename="trained_model")
 		
 		# with open('memory.pickle', 'rb') as f:
