@@ -1,12 +1,12 @@
 import time
 import Environment
 
-### User specified parameters ###
-USE_GPU = False
-N_EPOCH = 200
-#################################
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("--use_gpu", help="Use GPU if True, use CPU if False", action='store_true')
+parser.add_argument("--n_epoch", help="Number of epochs to train the machine learning model.", default=200, type=int)
+args = parser.parse_args()
 
-## Train ##
 t1 = time.time()
 env = Environment.Environment(gpu=USE_GPU)
 # env.Stock() # Stock supervision data
