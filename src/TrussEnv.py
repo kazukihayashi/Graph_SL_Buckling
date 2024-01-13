@@ -217,14 +217,14 @@ class Truss():
 	def render(self, name=None, show=False):
 		nsize = [10 for i in range(self.nk)]
 		nshape = ['o' for i in range(self.nk)]
-		ncolor = [(1.0,1.0,1.0) for i in range(self.nk)]
+		ncolor = [(0.5,0.5,0.5) for i in range(self.nk)]
 
 		if name == None:
 			name = 0
 
 		for sn in self.pin_nodes:
 			nshape[sn] = '^'
-			nsize[sn] = 15
+			nsize[sn] = 4
 
 		outfile = Plotter.Draw(self.node,self.connectivity,node_color=ncolor,node_size=nsize,node_shape=nshape,name=name,show=show)
 
