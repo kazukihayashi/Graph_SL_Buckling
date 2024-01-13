@@ -82,7 +82,7 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		# for obj in objects:
 		# 	obj.remove()
 
-		pyplot.close(fig)
+		pyplot.close()
 	else:
 		raise Exception("Only 3D figure is supported.")
 
