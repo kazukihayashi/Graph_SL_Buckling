@@ -21,7 +21,7 @@ class Environment():
 			self.brain.model = self.brain.model.to("cuda")
 		pass
 
-	def Stock(self):
+	def Stock(self,n_train_data):
 		max_nx = 6
 		max_ny = 6
 		min_nx = 5
@@ -31,16 +31,14 @@ class Environment():
 		if max_ny < min_ny:
 			assert "Invalid max_ny"
 		count = 0
-		for nx in range(min_ny,max_ny+1):
-			for ny in range(min_nx,max_nx+1):
-				for i in range(10000):
-					self.env.reset(nx=nx,ny=ny)
-					v,w,target = self.env.run()
-					if target != None:
-						self.brain.store(self.env.connectivity,v,w,target)
-						count += 1
-					if count%100==0:
-						print("Stocked {0} data.".format(count))
+		for i in range(n_train_data):
+			self.env.reset(nx=np.randint(min_nx,max_nx),ny=np.randint(min_ny,max_ny))
+			v,w,target = self.env.run()
+			if target != None:
+				self.brain.store(self.env.connectivity,v,w,target)
+				count += 1
+			if count%100==0:
+				print("Stocked {0} data.".format(count))
 		print("Finish. Stocked {0} data.".format(count))
 		with open('memory.pickle','wb') as f:
 			pickle.dump(self.brain.memory, f)
