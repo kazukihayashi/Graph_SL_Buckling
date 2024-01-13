@@ -4,6 +4,10 @@ import csv
 import Plotter
 import Agent
 import pickle
+import os
+
+if not os.path.exists("result"):
+	os.makedirs("result")
 
 ### User specified parameters ###
 import TrussEnv as env
