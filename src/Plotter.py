@@ -108,7 +108,7 @@ def Draw(node, connectivity, node_color=[], node_vec=[], node_size=[], node_shap
 		ax.set_proj_type('ortho')
 		ax.view_init(elev=30, azim=225)
 		pyplot.axis('off')
-		pyplot.savefig(r'result\{:0>4}.png'.format(name))
+		pyplot.savefig(r'result/{0}.png'.format(name))
 		if show:
 			pyplot.show()
 		for obj in objects:
@@ -126,7 +126,7 @@ def graph(y,index=0):
 	pyplot.plot(x,y,linewidth=1)
 
 	# save figure
-	pyplot.savefig(r"result\graph("+str(index)+").png")
+	pyplot.savefig(r"result/graph("+str(index)+").png")
 	##pyplot.show()
 	pyplot.close()
 
